@@ -1,0 +1,12 @@
+version: "3"
+services:
+  nuxt-congestion-status-grasp-web-front:
+    container_name: nuxt-congestion-status-grasp-web-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/var/www/html
+    tty: true
