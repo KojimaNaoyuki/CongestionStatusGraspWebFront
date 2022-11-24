@@ -22,30 +22,46 @@
 
       <!-- =========================================================== -->
 
-      <h2
+      <!-- <h2
         class="congestion-contents-congestion-ms"
-        style="color: #618a30"
+        style="color: #8bbe4e"
         v-if="this.$route.query.humanLv == 1"
       >
         空いてる
+      </h2> -->
+
+      <h2
+        class="congestion-contents-congestion-humanNum"
+        style="color: #8bbe4e"
+        v-if="this.$route.query.humanLv == 1"
+      >
+        16人
       </h2>
 
       <h3
         class="congestion-contents-congestion-degree"
-        style="color: #618a30"
+        style="color: #8bbe4e"
         v-if="this.$route.query.humanLv == 1"
       >
-        1m^2あたり1.666人
+        1m<sup>2</sup>あたり1.666人
       </h3>
 
       <!-- =========================================================== -->
 
-      <h2
+      <!-- <h2
         class="congestion-contents-congestion-ms"
         style="color: #f09814"
         v-if="this.$route.query.humanLv == 2"
       >
         普通
+      </h2> -->
+
+      <h2
+        class="congestion-contents-congestion-humanNum"
+        style="color: #f09814"
+        v-if="this.$route.query.humanLv == 2"
+      >
+        16人
       </h2>
 
       <h3
@@ -53,17 +69,25 @@
         style="color: #f09814"
         v-if="this.$route.query.humanLv == 2"
       >
-        1m^2あたり1.666人
+        1m<sup>2</sup>あたり1.666人
       </h3>
 
       <!-- =========================================================== -->
 
-      <h2
+      <!-- <h2
         class="congestion-contents-congestion-ms"
         style="color: rgb(225, 72, 5)"
         v-if="this.$route.query.humanLv == 3"
       >
         混雑
+      </h2> -->
+
+      <h2
+        class="congestion-contents-congestion-humanNum"
+        style="color: rgb(225, 72, 5)"
+        v-if="this.$route.query.humanLv == 3"
+      >
+        16人
       </h2>
 
       <h3
@@ -71,7 +95,7 @@
         style="color: rgb(225, 72, 5)"
         v-if="this.$route.query.humanLv == 3"
       >
-        1m^2あたり1.666人
+        1m<sup>2</sup>あたり1.666人
       </h3>
 
       <!-- =========================================================== -->
@@ -101,9 +125,14 @@ export default {
   height: 100vh;
 
   &-name {
-    padding: 5px 10px;
-    font-size: 18px;
+    display: inline-block;
+    text-align: left;
+    padding: 5px 50px;
+    font-size: 24px;
     font-weight: bold;
+    color: #fff;
+    background-color: #797dff;
+    border-radius: 0 0 30px 0;
   }
 
   &-contents {
@@ -111,27 +140,41 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 900px;
+    margin: 0 auto;
 
     &-img {
       &-wrap {
         text-align: center;
       }
       &-contents {
-        width: 124px;
+        width: 40%;
+        max-width: 260px;
       }
     }
 
     &-congestion {
-      &-ms {
+      &-humanNum {
         padding: 20px 0 30px;
-        font-size: 30px;
+        font-size: min(10vw, 60px);
         font-weight: bold;
         text-align: center;
       }
+      &-ms {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        font-size: 60px;
+        font-weight: bold;
+        text-align: center;
+        transform: rotate(-30deg);
+        opacity: 0.5;
+      }
       &-degree {
         width: 90vw;
+        max-width: 900px;
         text-align: center;
-        font-size: 20px;
+        font-size: min(7vw, 40px);
         font-weight: bold;
         color: #000;
       }
