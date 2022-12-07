@@ -1,5 +1,5 @@
 <template>
-  <div class="congestionBox">
+  <div class="congestionBox" @click="gotoPage">
     <img
       src="~/assets/img/humanLv1.svg"
       class="congestionBox-img"
@@ -16,14 +16,20 @@
       v-if="humanLv == 3"
     />
     <div class="congestionBox-title-wrap">
-      <h3 class="congestionBox-title-ms">会議室B</h3>
+      <h3 class="congestionBox-title-ms">{{ placeName }}</h3>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["humanLv"],
+  props: ["humanLv", "placeName", "placeId"],
+
+  methods: {
+    gotoPage: function () {
+      window.location = "/congestion/" + this.placeId + "?" + "humanLv=" + 2;
+    },
+  },
 };
 </script>
 

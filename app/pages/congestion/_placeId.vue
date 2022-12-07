@@ -1,6 +1,6 @@
 <template>
   <section class="congestion">
-    <h2 class="congestion-name">会議室B</h2>
+    <h2 class="congestion-name" id="congestionName">未設定</h2>
     <div class="congestion-contents">
       <div class="congestion-contents-img-wrap">
         <img
@@ -22,20 +22,12 @@
 
       <!-- =========================================================== -->
 
-      <!-- <h2
-        class="congestion-contents-congestion-ms"
-        style="color: #8bbe4e"
-        v-if="this.$route.query.humanLv == 1"
-      >
-        空いてる
-      </h2> -->
-
       <h2
         class="congestion-contents-congestion-humanNum"
         style="color: #8bbe4e"
         v-if="this.$route.query.humanLv == 1"
       >
-        16人
+        <span id="number_of_people">--</span>人
       </h2>
 
       <h3
@@ -43,25 +35,17 @@
         style="color: #8bbe4e"
         v-if="this.$route.query.humanLv == 1"
       >
-        1m<sup>2</sup>あたり1.666人
+        1m<sup>2</sup>あたり<span id="density">--</span>人
       </h3>
 
       <!-- =========================================================== -->
 
-      <!-- <h2
-        class="congestion-contents-congestion-ms"
-        style="color: #f09814"
-        v-if="this.$route.query.humanLv == 2"
-      >
-        普通
-      </h2> -->
-
       <h2
         class="congestion-contents-congestion-humanNum"
         style="color: #f09814"
         v-if="this.$route.query.humanLv == 2"
       >
-        16人
+        <span id="number_of_people">--</span>人
       </h2>
 
       <h3
@@ -69,25 +53,17 @@
         style="color: #f09814"
         v-if="this.$route.query.humanLv == 2"
       >
-        1m<sup>2</sup>あたり1.666人
+        1m<sup>2</sup>あたり<span id="density">--</span>人
       </h3>
 
       <!-- =========================================================== -->
 
-      <!-- <h2
-        class="congestion-contents-congestion-ms"
-        style="color: rgb(225, 72, 5)"
-        v-if="this.$route.query.humanLv == 3"
-      >
-        混雑
-      </h2> -->
-
       <h2
         class="congestion-contents-congestion-humanNum"
         style="color: rgb(225, 72, 5)"
         v-if="this.$route.query.humanLv == 3"
       >
-        16人
+        <span id="number_of_people">--</span>人
       </h2>
 
       <h3
@@ -95,7 +71,7 @@
         style="color: rgb(225, 72, 5)"
         v-if="this.$route.query.humanLv == 3"
       >
-        1m<sup>2</sup>あたり1.666人
+        1m<sup>2</sup>あたり<span id="density">--</span>人
       </h3>
 
       <!-- =========================================================== -->
@@ -104,8 +80,30 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  mounted: function () {
+  data() {
+    return {
+      placeData: null,
+      congestionData: null,
+    };
+  },
+
+  mounted: async function () {
+    const response = await axios.get(
+      "http://localhost:3001/v1/congestion_data/" + this.$route.params.placeId
+    );
+    this.congestionData = response.data.data[0];
+    this.placeData = response.data.data[1];
+    console.log(this.congestionData);
+    console.log(this.placeData);
+
+    document.querySelector("#congestionName").innerHTML = this.placeData.name;
+    document.querySelector("#number_of_people").innerHTML =
+      this.congestionData.number_of_people;
+    document.querySelector("#density").innerHTML = this.congestionData.density;
+
     if (this.$route.query.humanLv == 1)
       document.querySelector(".congestion").style.backgroundColor = "#e4ffdf";
 

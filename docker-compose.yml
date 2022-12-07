@@ -1,7 +1,7 @@
 version: "3"
 services:
-  nuxt-congestion-status-grasp-web-front:
-    container_name: nuxt-congestion-status-grasp-web-front
+  front:
+    container_name: front
     build:
       context: .
       dockerfile: Dockerfile
