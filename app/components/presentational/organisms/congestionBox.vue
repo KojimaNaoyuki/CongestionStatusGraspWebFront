@@ -28,14 +28,17 @@ export default {
   data() {
     return {
       humanLv: 1,
+      congestionDataId: null,
     };
   },
 
   mounted: async function () {
     try {
       const response = await axios.get(
-        "http://localhost:3001/v1/congestion_data/" + this.placeId
+        "http://localhost:3001/v1/congestion_data/serach?name=" + this.placeName
       );
+
+      this.congestionDataId = response.data.data[0].id;
 
       const density = response.data.data[0].density;
 
@@ -48,7 +51,11 @@ export default {
   methods: {
     gotoPage: async function () {
       window.location =
-        "/congestion/" + this.placeId + "?" + "humanLv=" + this.humanLv;
+        "/congestion/" +
+        this.congestionDataId +
+        "?" +
+        "humanLv=" +
+        this.humanLv;
     },
 
     calcHumanLv: function (density) {

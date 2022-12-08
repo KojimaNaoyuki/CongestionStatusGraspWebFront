@@ -93,7 +93,8 @@ export default {
   mounted: async function () {
     try {
       const response = await axios.get(
-        "http://localhost:3001/v1/congestion_data/" + this.$route.params.placeId
+        "http://localhost:3001/v1/congestion_data/" +
+          this.$route.params.congestionDataId
       );
       this.congestionData = response.data.data[0];
       this.placeData = response.data.data[1];
