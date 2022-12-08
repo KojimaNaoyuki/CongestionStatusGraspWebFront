@@ -22,12 +22,50 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  props: ["humanLv", "placeName", "placeId"],
+  props: ["placeName", "placeId"],
+
+  data() {
+    return {
+      humanLv: 1,
+    };
+  },
+
+  mounted: async function () {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/v1/congestion_data/" + this.placeId
+      );
+
+      const density = response.data.data[0].density;
+
+      this.calcHumanLv(density);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 
   methods: {
-    gotoPage: function () {
-      window.location = "/congestion/" + this.placeId + "?" + "humanLv=" + 2;
+    gotoPage: async function () {
+      window.location =
+        "/congestion/" + this.placeId + "?" + "humanLv=" + this.humanLv;
+    },
+
+    calcHumanLv: function (density) {
+      if (density > 3) {
+        this.humanLv = 3;
+        return;
+      }
+      if (density > 2) {
+        this.humanLv = 2;
+        return;
+      }
+      if (density > 1) {
+        this.humanLv = 1;
+        return;
+      }
     },
   },
 };
