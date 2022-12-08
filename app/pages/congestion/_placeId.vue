@@ -1,6 +1,6 @@
 <template>
   <section class="congestion">
-    <h2 class="congestion-name" id="congestionName">未設定</h2>
+    <h2 class="congestion-name" id="congestionName">計測準備中</h2>
     <div class="congestion-contents">
       <div class="congestion-contents-img-wrap">
         <img
@@ -91,18 +91,23 @@ export default {
   },
 
   mounted: async function () {
-    const response = await axios.get(
-      "http://localhost:3001/v1/congestion_data/" + this.$route.params.placeId
-    );
-    this.congestionData = response.data.data[0];
-    this.placeData = response.data.data[1];
-    console.log(this.congestionData);
-    console.log(this.placeData);
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/v1/congestion_data/" + this.$route.params.placeId
+      );
+      this.congestionData = response.data.data[0];
+      this.placeData = response.data.data[1];
+      console.log(this.congestionData);
+      console.log(this.placeData);
 
-    document.querySelector("#congestionName").innerHTML = this.placeData.name;
-    document.querySelector("#number_of_people").innerHTML =
-      this.congestionData.number_of_people;
-    document.querySelector("#density").innerHTML = this.congestionData.density;
+      document.querySelector("#congestionName").innerHTML = this.placeData.name;
+      document.querySelector("#number_of_people").innerHTML =
+        this.congestionData.number_of_people;
+      document.querySelector("#density").innerHTML =
+        this.congestionData.density;
+    } catch (err) {
+      console.log(err);
+    }
 
     if (this.$route.query.humanLv == 1)
       document.querySelector(".congestion").style.backgroundColor = "#e4ffdf";

@@ -15,9 +15,7 @@
       class="congestionBox-img"
       v-if="humanLv == 3"
     />
-    <div class="congestionBox-title-wrap">
-      <h3 class="congestionBox-title-ms">{{ placeName }}</h3>
-    </div>
+    <h3 class="congestionBox-title-ms">{{ placeName }}</h3>
   </div>
 </template>
 
@@ -73,26 +71,30 @@ export default {
 
 <style lang="scss" scoped>
 .congestionBox {
-  display: flex;
-  align-items: center;
-  padding: 5px 5px;
-  box-shadow: 0px 0px 4px 1px #c5c5c5;
+  text-align: center;
+  padding: 15px 0px;
+  margin: 0 10px;
+  border: solid 2px #ccc;
+  border-radius: 15px;
+  max-width: 340px;
+  width: 90vw;
+  &:hover {
+    transition: all 0.4s;
+    background-color: #cdcfff;
+    cursor: pointer;
+  }
+
   &-img {
-    width: 64px;
+    width: 84px;
   }
 
   &-title {
-    &-wrap {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
     &-ms {
       padding: 0 20px;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: bold;
       color: #2e2e2e;
-      transform: translateX(-25%);
+      text-align: center;
     }
   }
 }
