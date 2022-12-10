@@ -90,25 +90,32 @@ export default {
     };
   },
 
-  mounted: async function () {
-    try {
-      const response = await axios.get(
-        "http://localhost:3001/v1/congestion_data/" +
-          this.$route.params.congestionDataId
-      );
-      this.congestionData = response.data.data[0];
-      this.placeData = response.data.data[1];
-      console.log(this.congestionData);
-      console.log(this.placeData);
+  methods: {
+    getCongestionData: async function () {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/v1/congestion_data/" +
+            this.$route.params.congestionDataId
+        );
+        this.congestionData = response.data.data[0];
+        this.placeData = response.data.data[1];
+        console.log(this.congestionData);
+        console.log(this.placeData);
 
-      document.querySelector("#congestionName").innerHTML = this.placeData.name;
-      document.querySelector("#number_of_people").innerHTML =
-        this.congestionData.number_of_people;
-      document.querySelector("#density").innerHTML =
-        this.congestionData.density;
-    } catch (err) {
-      console.log(err);
-    }
+        document.querySelector("#congestionName").innerHTML =
+          this.placeData.name;
+        document.querySelector("#number_of_people").innerHTML =
+          this.congestionData.number_of_people;
+        document.querySelector("#density").innerHTML =
+          this.congestionData.density;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
+
+  mounted: function () {
+    this.getCongestionData();
 
     if (this.$route.query.humanLv == 1)
       document.querySelector(".congestion").style.backgroundColor = "#e4ffdf";
@@ -118,6 +125,11 @@ export default {
 
     if (this.$route.query.humanLv == 3)
       document.querySelector(".congestion").style.backgroundColor = "#ffc7c7";
+
+    // 2分30秒毎に更新
+    setInterval(() => {
+      this.getCongestionData();
+    }, 150000);
   },
 };
 </script>
