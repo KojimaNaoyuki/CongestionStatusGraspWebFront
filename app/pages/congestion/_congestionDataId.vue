@@ -6,17 +6,17 @@
         <img
           src="~/assets/img/humanLv1.svg"
           class="congestion-contents-img-contents"
-          v-if="this.$route.query.humanLv == 1"
+          v-if="this.humanLv == 1"
         />
         <img
           src="~/assets/img/humanLv2.svg"
           class="congestion-contents-img-contents"
-          v-if="this.$route.query.humanLv == 2"
+          v-if="this.humanLv == 2"
         />
         <img
           src="~/assets/img/humanLv3.svg"
           class="congestion-contents-img-contents"
-          v-if="this.$route.query.humanLv == 3"
+          v-if="this.humanLv == 3"
         />
       </div>
 
@@ -25,7 +25,7 @@
       <h2
         class="congestion-contents-congestion-humanNum"
         style="color: #8bbe4e"
-        v-if="this.$route.query.humanLv == 1"
+        v-if="this.humanLv == 1"
       >
         <span id="number_of_people">--</span>人
       </h2>
@@ -33,7 +33,7 @@
       <h3
         class="congestion-contents-congestion-degree"
         style="color: #8bbe4e"
-        v-if="this.$route.query.humanLv == 1"
+        v-if="this.humanLv == 1"
       >
         1m<sup>2</sup>あたり<span id="density">--</span>人
       </h3>
@@ -43,7 +43,7 @@
       <h2
         class="congestion-contents-congestion-humanNum"
         style="color: #f09814"
-        v-if="this.$route.query.humanLv == 2"
+        v-if="this.humanLv == 2"
       >
         <span id="number_of_people">--</span>人
       </h2>
@@ -51,7 +51,7 @@
       <h3
         class="congestion-contents-congestion-degree"
         style="color: #f09814"
-        v-if="this.$route.query.humanLv == 2"
+        v-if="this.humanLv == 2"
       >
         1m<sup>2</sup>あたり<span id="density">--</span>人
       </h3>
@@ -61,7 +61,7 @@
       <h2
         class="congestion-contents-congestion-humanNum"
         style="color: rgb(225, 72, 5)"
-        v-if="this.$route.query.humanLv == 3"
+        v-if="this.humanLv == 3"
       >
         <span id="number_of_people">--</span>人
       </h2>
@@ -69,7 +69,7 @@
       <h3
         class="congestion-contents-congestion-degree"
         style="color: rgb(225, 72, 5)"
-        v-if="this.$route.query.humanLv == 3"
+        v-if="this.humanLv == 3"
       >
         1m<sup>2</sup>あたり<span id="density">--</span>人
       </h3>
@@ -87,6 +87,7 @@ export default {
     return {
       placeData: null,
       congestionData: null,
+      humanLv: this.$route.query.humanLv,
     };
   },
 
@@ -108,23 +109,44 @@ export default {
           this.congestionData.number_of_people;
         document.querySelector("#density").innerHTML =
           this.congestionData.density;
+
+        this.calcHumanLv(this.congestionData.density);
+        console.log(this.humanLv);
+
+        if (this.humanLv == 1)
+          document.querySelector(".congestion").style.backgroundColor =
+            "#e4ffdf";
+
+        if (this.humanLv == 2)
+          document.querySelector(".congestion").style.backgroundColor =
+            "#ffdfca";
+
+        if (this.humanLv == 3)
+          document.querySelector(".congestion").style.backgroundColor =
+            "#ffc7c7";
       } catch (err) {
         console.log(err);
+      }
+    },
+
+    calcHumanLv: function (density) {
+      if (density < 1) {
+        this.humanLv = 1;
+        return;
+      }
+      if (density < 2) {
+        this.humanLv = 2;
+        return;
+      }
+      if (density < 3) {
+        this.humanLv = 3;
+        return;
       }
     },
   },
 
   mounted: function () {
     this.getCongestionData();
-
-    if (this.$route.query.humanLv == 1)
-      document.querySelector(".congestion").style.backgroundColor = "#e4ffdf";
-
-    if (this.$route.query.humanLv == 2)
-      document.querySelector(".congestion").style.backgroundColor = "#ffdfca";
-
-    if (this.$route.query.humanLv == 3)
-      document.querySelector(".congestion").style.backgroundColor = "#ffc7c7";
 
     // 2分30秒毎に更新
     setInterval(() => {
