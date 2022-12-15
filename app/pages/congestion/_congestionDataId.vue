@@ -76,6 +76,7 @@
 
       <!-- =========================================================== -->
     </div>
+    <h3 class="congestion-time" id="congestionTime">更新日時</h3>
   </section>
 </template>
 
@@ -109,6 +110,10 @@ export default {
           this.congestionData.number_of_people;
         document.querySelector("#density").innerHTML =
           this.congestionData.density;
+
+        document.querySelector(
+          "#congestionTime"
+        ).innerHTML = `更新: ${this.congestionData.updated_at}`;
 
         this.calcHumanLv(this.congestionData.density);
         console.log(this.humanLv);
@@ -161,6 +166,16 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
+
+  &-time {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding: 5px 10px;
+    font-size: min(4vw, 20px);
+    font-weight: bold;
+    color: #585858;
+  }
 
   &-name {
     display: inline-block;
