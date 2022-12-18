@@ -111,9 +111,11 @@ export default {
         document.querySelector("#density").innerHTML =
           this.congestionData.density;
 
+        let updateTime = new Date(this.congestionData.updated_at);
+
         document.querySelector(
           "#congestionTime"
-        ).innerHTML = `更新: ${this.congestionData.updated_at}`;
+        ).innerHTML = `更新: ${updateTime.toLocaleString("ja-JP")}`;
 
         this.calcHumanLv(this.congestionData.density);
         console.log(this.humanLv);
