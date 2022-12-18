@@ -112,7 +112,6 @@ export default {
           this.congestionData.density;
 
         let updateTime = new Date(this.congestionData.updated_at);
-
         document.querySelector(
           "#congestionTime"
         ).innerHTML = `更新: ${updateTime.toLocaleString("ja-JP")}`;
