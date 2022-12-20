@@ -2,6 +2,10 @@
   <section class="congestion">
     <h2 class="congestion-name" id="congestionName">計測準備中</h2>
     <div class="congestion-contents">
+      <div class="congestion-contents-explanation">
+        <h3>千葉工業大学 情報科学部 情報ネットワーク学科</h3>
+        <h3>中川研究室卒業研究「混雑情報共有システム」実験中</h3>
+      </div>
       <div class="congestion-contents-img-wrap">
         <img
           src="~/assets/img/humanLv1.svg"
@@ -197,8 +201,19 @@ export default {
     max-width: 900px;
     margin: 0 auto;
 
+    &-explanation {
+      text-align: center;
+      & h3 {
+        padding: 0 0 15px;
+        font-size: min(3.5vw, 26px);
+        font-weight: bold;
+        color: #585858;
+      }
+    }
+
     &-img {
       &-wrap {
+        margin: 50px 0 0;
         text-align: center;
       }
       &-contents {
