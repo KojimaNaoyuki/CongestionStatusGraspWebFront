@@ -59,18 +59,13 @@ export default {
     },
 
     calcHumanLv: function (density) {
-      if (density > 3) {
-        this.humanLv = 3;
-        return;
-      }
-      if (density > 2) {
+      const humanLv1Density = 0.25;
+      const humanLv2Density = 0.75;
+
+      if (0 <= density && density < humanLv1Density) this.humanLv = 1;
+      if (humanLv1Density <= density && density < humanLv2Density)
         this.humanLv = 2;
-        return;
-      }
-      if (density > 1) {
-        this.humanLv = 1;
-        return;
-      }
+      if (humanLv2Density <= density) this.humanLv = 3;
     },
   },
 };

@@ -2,10 +2,6 @@
   <section class="congestion">
     <h2 class="congestion-name" id="congestionName">計測準備中</h2>
     <div class="congestion-contents">
-      <div class="congestion-contents-explanation">
-        <h3>千葉工業大学 情報科学部 情報ネットワーク学科</h3>
-        <h3>中川研究室卒業研究「混雑情報共有システム」実験中</h3>
-      </div>
       <div class="congestion-contents-img-wrap">
         <img
           src="~/assets/img/humanLv1.svg"
@@ -80,6 +76,10 @@
 
       <!-- =========================================================== -->
     </div>
+    <div class="congestion-contents-explanation">
+      <h3>千葉工業大学 情報科学部 情報ネットワーク学科</h3>
+      <h3>中川研究室卒業研究「混雑情報共有システム」実験中</h3>
+    </div>
     <h3 class="congestion-time" id="congestionTime">更新日時</h3>
   </section>
 </template>
@@ -140,18 +140,13 @@ export default {
     },
 
     calcHumanLv: function (density) {
-      if (density < 1) {
-        this.humanLv = 1;
-        return;
-      }
-      if (density < 2) {
+      const humanLv1Density = 0.25;
+      const humanLv2Density = 0.75;
+
+      if (0 <= density && density < humanLv1Density) this.humanLv = 1;
+      if (humanLv1Density <= density && density < humanLv2Density)
         this.humanLv = 2;
-        return;
-      }
-      if (density < 3) {
-        this.humanLv = 3;
-        return;
-      }
+      if (humanLv2Density <= density) this.humanLv = 3;
     },
   },
 
@@ -174,12 +169,15 @@ export default {
 
   &-time {
     position: absolute;
-    bottom: 0px;
+    top: 0;
     right: 0px;
     padding: 5px 10px;
-    font-size: min(4vw, 20px);
+    font-size: 10px;
     font-weight: bold;
     color: #585858;
+    @media screen and (min-width: 900px) {
+      font-size: min(4vw, 20px);
+    }
   }
 
   &-name {
@@ -202,12 +200,16 @@ export default {
     margin: 0 auto;
 
     &-explanation {
-      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
       & h3 {
-        padding: 0 0 15px;
-        font-size: min(3.5vw, 26px);
+        padding: 0 0 5px;
+        font-size: min(3vw, 20px);
         font-weight: bold;
         color: #585858;
+        text-align: center;
       }
     }
 
