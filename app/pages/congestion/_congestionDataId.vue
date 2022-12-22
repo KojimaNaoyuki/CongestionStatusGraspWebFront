@@ -77,8 +77,8 @@
       <!-- =========================================================== -->
     </div>
     <div class="congestion-contents-explanation">
-      <h3>千葉工業大学 情報科学部 情報ネットワーク学科</h3>
-      <h3>中川研究室卒業研究「混雑情報共有システム」実験中</h3>
+      <h3>千葉工業大学 情報ネットワーク学科 中川研究室</h3>
+      <h3>卒業研究「混雑情報共有システム」実験中</h3>
     </div>
     <h3 class="congestion-time" id="congestionTime">更新日時</h3>
   </section>
@@ -205,11 +205,11 @@ export default {
       left: 0;
       width: 100vw;
       & h3 {
-        padding: 0 0 5px;
+        padding: 0 10px 5px;
         font-size: min(3vw, 20px);
         font-weight: bold;
         color: #585858;
-        text-align: center;
+        text-align: right;
       }
     }
 
