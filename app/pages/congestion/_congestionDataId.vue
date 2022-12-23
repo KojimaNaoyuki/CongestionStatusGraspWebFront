@@ -140,7 +140,7 @@ export default {
     },
 
     calcHumanLv: function (density) {
-      const humanLv1Density = 0.25;
+      const humanLv1Density = 0.5;
       const humanLv2Density = 0.75;
 
       if (0 <= density && density < humanLv1Density) this.humanLv = 1;
